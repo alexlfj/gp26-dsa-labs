@@ -38,13 +38,11 @@ namespace DSA.Lab00
             {
                 Player highestScorePlayer = _players[0];
 
-                foreach (Player player in _players)
+                for (int i = 1; i < _players.Count; i++)
                 {
-                    if (player.Score > highestScorePlayer.Score)
+                    if (_players[i].Score > highestScorePlayer.Score)
                     {
-                        highestScorePlayer = player;
-
-                        
+                        highestScorePlayer = _players[i];
                     }
                 }
 
@@ -56,15 +54,7 @@ namespace DSA.Lab00
 
         public bool ContainsName(string name)
         {
-            
-            if (_players.Count != 0)
-            {
                 return _players.Any(player => player.Name == name);
-
-            }
-
-            return false;
-
         }
     }
 }
