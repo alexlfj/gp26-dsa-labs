@@ -61,9 +61,14 @@ namespace DSA.Lab00
             return null;
         }
 
-        public bool ContainsName(string name)
+        public bool? ContainsName(string name)
         {
+            if (_players.Count != 0)
+            {
                 return _players.Any(player => player.Name == name);
+            }
+
+            return null;
         }
     }
 }

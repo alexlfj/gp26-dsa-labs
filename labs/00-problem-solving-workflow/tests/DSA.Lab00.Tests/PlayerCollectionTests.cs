@@ -54,7 +54,7 @@ public sealed class PlayerCollectionTests
     {
         PlayerCollection collection = CreateCollection();
 
-        bool contains = collection.ContainsName("Bo");
+        bool? contains = collection.ContainsName("Bo");
 
         Assert.That(contains, Is.True);
     }
@@ -64,20 +64,20 @@ public sealed class PlayerCollectionTests
     {
         PlayerCollection collection = CreateCollection();
 
-        bool contains = collection.ContainsName("Eli");
+        bool? contains = collection.ContainsName("Eli");
 
         Assert.That(contains, Is.False);
     }
 
     [Test]
-    public void ContainsName_ReturnsFalseForEmptyCollection()
+    public void ContainsName_ReturnsNullForEmptyCollection()
     {
 
         PlayerCollection collection = new(new List<Player>());
 
         bool? contains = collection.ContainsName("");
 
-        Assert.That(contains, Is.False);
+        Assert.That(contains, Is.Null);
     }
 
     private static PlayerCollection CreateCollection()
