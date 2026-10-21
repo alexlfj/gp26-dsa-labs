@@ -1194,4 +1194,4 @@ else
 }
 
 Console.WriteLine();
-Console.WriteLine("Next: open the lab README and work through the tasks.");
+Console.WriteLine("I've done most extensions, and this change is coming from a git branch!");
