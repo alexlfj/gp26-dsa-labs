@@ -20,13 +20,22 @@ namespace DSA.Lab00
 
         public Player? FindById(int id)
         {
+            int counter = 0;
+            
             foreach (Player player in _players)
             {
+                counter++;
+
                 if (player.Id == id)
                 {
+                    Console.WriteLine(counter); // For when it runs
                     return player;
                 }
+
+                
             }
+
+            Console.WriteLine(counter); // For when it doesn't run
 
             return null;
         }
