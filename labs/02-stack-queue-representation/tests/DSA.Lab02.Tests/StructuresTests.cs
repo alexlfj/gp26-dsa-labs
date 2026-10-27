@@ -5,6 +5,9 @@ namespace DSA.Lab02.Tests
 {
     public sealed class StructuresTests
     {
+        
+// ArrayStack tests =====================================
+
         [Test]
         public void ArrayStack_IsLifo()
         {
@@ -40,6 +43,18 @@ namespace DSA.Lab02.Tests
         }
 
         [Test]
+        public void ArrayStack_EmptyPeekThrows()
+        {
+           var stack = new ArrayStack<int>(4);
+           stack.Push(10);
+           stack.Pop();
+           
+           Assert.Throws<InvalidOperationException>(() => stack.Peek());
+        }
+        
+        
+// ListQueue tests =====================================
+        [Test]
         public void ListQueue_IsFifo()
         {
             var queue = new ListQueue<string>();
@@ -48,6 +63,9 @@ namespace DSA.Lab02.Tests
             Assert.That(queue.Dequeue(), Is.EqualTo("B"));
             Assert.That(queue.Dequeue(), Is.EqualTo("C"));
         }
+
+        
+// RingQueue tests =====================================
 
         [Test]
         public void RingQueue_IsFifo()
@@ -95,5 +113,20 @@ namespace DSA.Lab02.Tests
             queue.Enqueue(1);
             Assert.Throws<InvalidOperationException>(() => queue.Enqueue(2));
         }
+        
+        [Test]
+        public void RingQueue_EmptyPeekThrows()
+        {
+            var queue = new RingQueue<int>(4);
+            Assert.Throws<InvalidOperationException>(() => queue.Peek());
+        }
+        
+        [Test]
+        public void RingQueue_NullItemThrows()
+        {
+            var queue = new RingQueue<int>(4);
+            Assert.Throws<InvalidOperationException>(() => queue.Peek());
+        }
+        
     }
 }

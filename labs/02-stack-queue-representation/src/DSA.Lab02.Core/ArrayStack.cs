@@ -24,7 +24,7 @@ namespace DSA.Lab02
         {
             if (item == null) { throw new InvalidOperationException(); }
             
-            if (_count == Capacity)
+            if (_count >= Capacity)
             {
                 throw new InvalidOperationException("Stack is full");
             }
@@ -35,13 +35,15 @@ namespace DSA.Lab02
 
         public T Peek()
         {
+           if (_count == 0) { throw new InvalidOperationException("The stack is empty."); }
+            
             return _items[_count - 1];
         }
 
         public T Pop()
         {
             
-            if (_count == 0){ throw new InvalidOperationException(); }
+            if (_count <= 0) { throw new InvalidOperationException("The stack is empty."); }
             
             T poppedItem = _items[_count - 1];
             _items[_count - 1] = default;

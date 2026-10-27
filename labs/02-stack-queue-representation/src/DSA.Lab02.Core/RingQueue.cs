@@ -35,6 +35,8 @@ namespace DSA.Lab02
 
         public T Peek()
         {
+            if (_count == 0) { throw new InvalidOperationException("The stack is empty."); }
+            
             return _items[_head];
         }
 
