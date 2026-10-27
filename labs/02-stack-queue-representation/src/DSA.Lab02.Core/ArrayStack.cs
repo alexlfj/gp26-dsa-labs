@@ -16,26 +16,40 @@ namespace DSA.Lab02
 
             _items = new T[capacity];
         }
-
+        
         public int Count => _count;
         public int Capacity => _items.Length;
 
         public void Push(T item)
         {
-            // TODO: place the item at the logical top and update the state.
-            throw new NotImplementedException();
+            if (item == null) { throw new InvalidOperationException(); }
+            
+            if (_count == Capacity)
+            {
+                throw new InvalidOperationException("Stack is full");
+            }
+
+            _items[_count] = item;
+            _count++;
         }
 
         public T Peek()
         {
-            // TODO: return the logical top without removing it.
-            throw new NotImplementedException();
+            return _items[_count - 1];
         }
 
         public T Pop()
         {
-            // TODO: remove and return the logical top.
-            throw new NotImplementedException();
+            
+            if (_count == 0){ throw new InvalidOperationException(); }
+            
+            T poppedItem = _items[_count - 1];
+            _items[_count - 1] = default;
+            
+            _count--;
+            
+            return poppedItem;
+
         }
     }
 }
