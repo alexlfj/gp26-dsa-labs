@@ -62,5 +62,15 @@ namespace DSA.Lab03.Tests
             Assert.That(table.TryGetValue(6, out string? value), Is.True);
             Assert.That(value, Is.EqualTo("New"));
         }
+
+        [Test]
+        public void HashTable_HandlesZeroKey()
+        {
+            var table = new IntHashTable<string>(5);
+            table.Set(0, "This is the value for the zero key");
+            Assert.That(table.TryGetValue(0, out string? value), Is.True);
+            Assert.That(value, Is.EqualTo("This is the value for the zero key"));
+        }
+        
     }
 }
