@@ -17,9 +17,15 @@ namespace DSA.Lab04A
             {
                 throw new ArgumentNullException(nameof(root));
             }
+            
+            int count = 1;
+        
+            foreach (HierarchyNode<T> child in root.Children)
+            {
+                count += CountNodes(child);
+            }
 
-            // TODO: count this node, then count every child subtree.
-            throw new NotImplementedException();
+            return count;
         }
 
         public static bool Contains<T>(HierarchyNode<T> root, T target)

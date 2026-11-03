@@ -101,6 +101,7 @@ namespace DSA.Lab04A.Tests
         private static HierarchyNode<string> BuildExample()
         {
             var survival = new HierarchyNode<string>("Survival");
+            
             HierarchyNode<string> movement = survival.AddChild("Movement");
             movement.AddChild("Dash");
             movement.AddChild("Climb");
