@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace DSA.Lab04A
 {
@@ -56,9 +57,16 @@ namespace DSA.Lab04A
                 throw new ArgumentNullException(nameof(root));
             }
 
-            // TODO: return values in pre-order:
-            // current node first, then each child subtree from left to right.
-            throw new NotImplementedException();
+            List<T> orderList = new List<T>();
+
+            orderList.Add(root.Value);
+
+            foreach (HierarchyNode<T> child in root.Children)
+            {
+                orderList.AddRange(DepthFirstPreOrder(child));
+            }
+
+            return orderList;
         }
 
         public static int MaxDepth<T>(HierarchyNode<T> root)
