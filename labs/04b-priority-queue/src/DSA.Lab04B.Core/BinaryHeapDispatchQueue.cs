@@ -30,7 +30,7 @@ namespace DSA.Lab04B
             
         }
 
-        public PriorityEntry<T> PeekNext()
+        public PriorityEntry<T> PeekNext()§
         {
             if (_heap.Count == 0)
             {
@@ -42,17 +42,30 @@ namespace DSA.Lab04B
 
         public PriorityEntry<T> DequeueNext()
         {
-            // TODO:
-            // 1. Reject an empty queue.
-            // 2. Remember the root: that is the minimum.
-            // 3. Move the final heap entry to the root and remove the final slot.
-            // 4. If anything remains, restore the invariant downward.
-            // 5. Return the old root.
-            throw new NotImplementedException();
+            
+            // Store the original root
+            PriorityEntry<T> dequeuedEntry = _heap[0];
+            
+            // Get the last entry and its index
+            PriorityEntry<T> lastEntry = _heap[^1];
+            int lastEntryIndex = _heap.Count - 1;
+            
+            // Move the final entry to the root position
+            Swap(0, lastEntryIndex);
+            
+            // Remove the slot where that final entry was
+            _heap.RemoveAt(lastEntryIndex);
+            
+            // Restore the invariant via Sift Down
+            SiftDown(0);
+            
+            // Return the original root
+            return dequeuedEntry;
+
         }
 
         private void SiftUp(int index)
-        { 
+        {
             int parentIndex = ParentIndex(index);
             
             while (_heap[parentIndex].Priority > _heap[index].Priority)
@@ -66,11 +79,23 @@ namespace DSA.Lab04B
 
         private void SiftDown(int index)
         {
-            
-            // TODO:
-            // Compare the current entry with its children.
-            // If a child should come first, swap with the smaller-priority child.
-            throw new NotImplementedException();
+            while (true)
+            {
+                int LeftIndex = LeftChildIndex(index);
+                int RightIndex = RightChildIndex(index);
+
+                int lowestChildIndex = _heap[LeftIndex].Priority < _heap[RightIndex].Priority ? LeftIndex : RightIndex;
+
+                if (_heap[lowestChildIndex].Priority >= _heap[index].Priority)
+                {
+                    return;
+                }
+
+                Swap(lowestChildIndex, index);
+
+                index = lowestChildIndex;
+
+            }
         }
 
         private static int ParentIndex(int index)
