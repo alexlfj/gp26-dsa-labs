@@ -19,10 +19,15 @@ namespace DSA.Lab04B
 
         public void Enqueue(T item, int priority)
         {
-            // TODO:
-            // 1. Append the new entry at the end.
-            // 2. Restore the heap invariant upward.
-            throw new NotImplementedException();
+            PriorityEntry<T> entry = new PriorityEntry<T>(item, priority);
+
+            _heap.Add(entry);
+            
+            int entryIndex = _heap.Count - 1;
+            int parentIndex = ParentIndex(entryIndex);
+            
+            SiftUp(entryIndex);
+            
         }
 
         public PriorityEntry<T> PeekNext()
@@ -47,13 +52,21 @@ namespace DSA.Lab04B
         }
 
         private void SiftUp(int index)
-        {
-            // TODO: compare the entry with its parent and swap while needed.
-            throw new NotImplementedException();
+        { 
+            int parentIndex = ParentIndex(index);
+            
+            while (_heap[parentIndex].Priority > _heap[index].Priority)
+            {
+                Swap(parentIndex, index);
+                
+                index = parentIndex;
+                parentIndex = ParentIndex(index);
+            }
         }
 
         private void SiftDown(int index)
         {
+            
             // TODO:
             // Compare the current entry with its children.
             // If a child should come first, swap with the smaller-priority child.
