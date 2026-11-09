@@ -24,13 +24,12 @@ namespace DSA.Lab04B
             _heap.Add(entry);
             
             int entryIndex = _heap.Count - 1;
-            int parentIndex = ParentIndex(entryIndex);
             
             SiftUp(entryIndex);
             
         }
 
-        public PriorityEntry<T> PeekNext()§
+        public PriorityEntry<T> PeekNext()
         {
             if (_heap.Count == 0)
             {
@@ -42,24 +41,29 @@ namespace DSA.Lab04B
 
         public PriorityEntry<T> DequeueNext()
         {
+            if (_heap.Count == 0)
+            {
+                throw new InvalidOperationException("The dispatch queue is empty.");
+            }
+
+            if (_heap.Count == 1)
+            {
+                var entry = _heap[0];
+                _heap.RemoveAt(0);
+                return entry;
+            }
             
-            // Store the original root
             PriorityEntry<T> dequeuedEntry = _heap[0];
             
-            // Get the last entry and its index
             PriorityEntry<T> lastEntry = _heap[^1];
             int lastEntryIndex = _heap.Count - 1;
             
-            // Move the final entry to the root position
             Swap(0, lastEntryIndex);
             
-            // Remove the slot where that final entry was
             _heap.RemoveAt(lastEntryIndex);
             
-            // Restore the invariant via Sift Down
             SiftDown(0);
             
-            // Return the original root
             return dequeuedEntry;
 
         }
@@ -81,20 +85,32 @@ namespace DSA.Lab04B
         {
             while (true)
             {
-                int LeftIndex = LeftChildIndex(index);
-                int RightIndex = RightChildIndex(index);
+                int leftIndex = LeftChildIndex(index);
+                int rightIndex = RightChildIndex(index);
+                int lowestChildIndex = index;
+                
+                if (IsInHeap(rightIndex))
+                {
+                    lowestChildIndex = _heap[leftIndex].Priority < _heap[rightIndex].Priority ? leftIndex : rightIndex;
+                }
 
-                int lowestChildIndex = _heap[LeftIndex].Priority < _heap[RightIndex].Priority ? LeftIndex : RightIndex;
+                if (IsInHeap(leftIndex) && !IsInHeap(rightIndex))
+                {
+                    lowestChildIndex = leftIndex;
+                }
 
+                if (!IsInHeap(leftIndex))
+                {
+                    return;
+                }
+                
                 if (_heap[lowestChildIndex].Priority >= _heap[index].Priority)
                 {
                     return;
                 }
 
                 Swap(lowestChildIndex, index);
-
                 index = lowestChildIndex;
-
             }
         }
 
@@ -118,6 +134,11 @@ namespace DSA.Lab04B
             PriorityEntry<T> temp = _heap[a];
             _heap[a] = _heap[b];
             _heap[b] = temp;
+        }
+        
+        private bool IsInHeap(int index)
+        {
+            return index <= _heap.Count - 1;
         }
     }
 }
