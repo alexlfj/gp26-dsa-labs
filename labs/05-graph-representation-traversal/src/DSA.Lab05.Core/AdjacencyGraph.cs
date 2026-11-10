@@ -7,8 +7,7 @@ namespace DSA.Lab05
     /// Graph representation organized around the repeated operation:
     /// "give me the outgoing neighbors of this node".
     ///
-    /// The dictionary lookup selects the relevant adjacency list directly.
-    /// Neighbor order follows the input edge order so traversals are deterministic.
+    /// The node buckets are prepared for you. Complete the edge-grouping step.
     /// </summary>
     public sealed class AdjacencyGraph
     {
@@ -44,7 +43,8 @@ namespace DSA.Lab05
                         $"Edge {edge} refers to a node that was not supplied.");
                 }
 
-                _neighborsByNode[edge.From].Add(edge.To);
+                // TODO:
+                // Add edge.To to the adjacency list belonging to edge.From.
             }
         }
 
