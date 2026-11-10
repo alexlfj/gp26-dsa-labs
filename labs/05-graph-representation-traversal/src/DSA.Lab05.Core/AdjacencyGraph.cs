@@ -11,8 +11,7 @@ namespace DSA.Lab05
     /// </summary>
     public sealed class AdjacencyGraph
     {
-        private readonly Dictionary<string, List<string>> _neighborsByNode =
-            new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, List<string>> _neighborsByNode = new Dictionary<string, List<string>>();
 
         public AdjacencyGraph(IEnumerable<string> nodes, IEnumerable<DirectedEdge> edges)
         {
@@ -36,15 +35,13 @@ namespace DSA.Lab05
 
             foreach (DirectedEdge edge in edges)
             {
-                if (!_neighborsByNode.ContainsKey(edge.From) ||
-                    !_neighborsByNode.ContainsKey(edge.To))
+                if (!_neighborsByNode.ContainsKey(edge.From) || !_neighborsByNode.ContainsKey(edge.To))
                 {
                     throw new ArgumentException(
                         $"Edge {edge} refers to a node that was not supplied.");
                 }
 
-                // TODO:
-                // Add edge.To to the adjacency list belonging to edge.From.
+                _neighborsByNode[edge.From].Add(edge.To);
             }
         }
 
