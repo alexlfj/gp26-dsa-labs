@@ -129,7 +129,7 @@ namespace DSA.Lab06.Tests
 			Assert.That(result.Found, Is.False);
 		}
 
-		[Test, Ignore("Optional Lab 6B / A* extension")]
+		[Test]
 		public void AStar_FindsSameLeastCostRouteAsDijkstra()
 		{
 			WeightedGraph graph = DemoWorld.BuildMainGraph();
@@ -143,7 +143,7 @@ namespace DSA.Lab06.Tests
 			Assert.That(actual.TotalCost, Is.EqualTo(expected.TotalCost));
 		}
 
-		[Test, Ignore("Optional Lab 6B / A* extension")]
+		[Test]
 		public void AStar_CanRespectBlockedNodeConstraint()
 		{
 			WeightedGraph graph = DemoWorld.BuildMainGraph();
@@ -156,7 +156,7 @@ namespace DSA.Lab06.Tests
 			Assert.That(result.Path, Does.Not.Contain("D"));
 		}
 
-		[Test, Ignore("Optional Lab 6B / A* extension")]
+		[Test]
 		public void AStar_ExpandsNoMoreNodesThanDijkstraOnGuidedDemo()
 		{
 			WeightedGraph graph = DemoWorld.BuildAStarDemoGraph();
