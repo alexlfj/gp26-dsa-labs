@@ -39,6 +39,11 @@ namespace DSA.Lab06
             {
                 MinFrontier<string>.Entry current = frontier.Dequeue();
 
+                if (blocked != null && blocked.Contains(current.Value))
+                {
+                    return RouteResult.NotFound(expandedNodes);
+                }
+
                 if (current.Priority > bestCost[current.Value] + Heuristics.Manhattan(graph.GetNode(current.Value),graph.GetNode(goal)))
                 {
                     continue;
@@ -53,12 +58,12 @@ namespace DSA.Lab06
 
                 foreach (WeightedEdge edge in graph.GetOutgoing(current.Value))
                 {
-                    int currentCost = bestCost[edge.From] + edge.Cost;
-
                     if (blocked != null && blocked.Contains(edge.To))
                     {
-                        break;
+                        continue;
                     }
+                    
+                    int currentCost = bestCost[edge.From] + edge.Cost;
 
                     if ((!bestCost.ContainsKey(edge.To) || currentCost < bestCost[edge.To]) )
                     {

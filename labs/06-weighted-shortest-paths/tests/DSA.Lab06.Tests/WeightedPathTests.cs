@@ -155,6 +155,48 @@ namespace DSA.Lab06.Tests
 			Assert.That(result.Found, Is.True);
 			Assert.That(result.Path, Does.Not.Contain("D"));
 		}
+		
+		[Test]
+		public void AStar_BlockedFirstNeighbour_StillTriesLaterNeighbours()
+		{
+			WeightedNode[] nodes =
+			{
+				new WeightedNode("S", 0, 0),
+				new WeightedNode("A", 1, 0),
+				new WeightedNode("B", 0, 1),
+				new WeightedNode("Goal", 2, 0)
+			};
+
+			WeightedEdge[] edges =
+			{
+				new WeightedEdge("S", "B", 1),    // first path, and it's blocked
+				new WeightedEdge("S", "A", 1),    // second path, the real way out
+				new WeightedEdge("A", "Goal", 1)
+			};
+
+			var graph = new WeightedGraph(nodes, edges);
+			var astar = new AStarRouteFinder();
+			var blocked = new HashSet<string> { "B" };
+
+			RouteResult result = astar.FindRoute(graph, "S", "Goal", blocked);
+
+			Assert.That(result.Found, Is.True);
+			Assert.That(result.Path, Is.EqualTo(new[] { "S", "A", "Goal" }));
+			Assert.That(result.TotalCost, Is.EqualTo(2));
+		}
+		
+		[Test]
+		public void AStar_BlockedStart_ReturnsNotFound()
+		{
+			WeightedGraph graph = DemoWorld.BuildMainGraph();
+			var astar = new AStarRouteFinder();
+			var blocked = new HashSet<string> { "A" };
+
+			RouteResult result = astar.FindRoute(graph, "A", "G", blocked);
+
+			Assert.That(result.Found, Is.False);
+			Assert.That(result.Path, Is.Empty);
+		}
 
 		[Test]
 		public void AStar_ExpandsNoMoreNodesThanDijkstraOnGuidedDemo()
