@@ -15,25 +15,25 @@ namespace DSA.Lab07
             long membershipChecks = 0;
             long totalThreat = 0;
 
+            HashSet<int> activeEnemyDatabase = new();
+            
+            foreach (int id in activeEnemyIds)
+            {
+                activeEnemyDatabase.Add(id);
+            }
+
             for (int r = 0; r < repetitions; r++)
             {
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     visited++;
                     Enemy e = enemies[i];
-                    bool isActive = false;
 
-                    for (int j = 0; j < activeEnemyIds.Count; j++)
+                    if (activeEnemyDatabase.Contains(e.Id))
                     {
                         membershipChecks++;
-                        if (activeEnemyIds[j] == e.Id)
-                        {
-                            isActive = true;
-                            break;
-                        }
+                        totalThreat += e.Threat;
                     }
-
-                    if (isActive) totalThreat += e.Threat;
                 }
             }
 
